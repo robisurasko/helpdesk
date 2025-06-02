@@ -1,14 +1,9 @@
 <template>
-  <div class="flex border-b pr-3">
-    <div id="app-header" class="flex-1 w-full flex items-center">
-      <!-- Centered header title -->
-      <h1 class="text-lg font-semibold mx-auto">
-        Superapp - Helpdesk
-      </h1>
-
-      <!-- Status on the right -->
+  <div class="flex border-b">
+    <div id="app-header" class="flex-1 w-full flex items-center justify-between px-2">
+      <!-- Left side with status dropdown -->
       <div class="flex items-center gap-1">
-        <div class="w-3 h-3 rounded-full" :class="{
+        <div class="w-2 h-2 rounded-full" :class="{
           'bg-green-500': agentStatus === 'Online',
           'bg-yellow-500': agentStatus === 'Busy',
           'bg-red-500': agentStatus === 'Offline'
@@ -17,20 +12,28 @@
         <div class="relative">
           <select 
             v-model="agentStatus" 
-            class="appearance-none bg-gray-100 border border-gray-300 rounded-md px-2 py-0.5 pr-6 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 h-[1.5rem]"
+            class="appearance-none bg-gray-100 border border-gray-300 rounded text-xs px-1.5 py-0.5 pr-5 focus:outline-none focus:ring-1 focus:ring-blue-500 h-[1.25rem]"
             @change="updateAgentStatus"
           >
             <option value="Online">Online</option>
             <option value="Busy">Busy</option>
             <option value="Offline">Offline</option>
           </select>
-          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
-            <svg class="fill-current h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1 text-gray-500">
+            <svg class="fill-current h-2.5 w-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
               <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
             </svg>
           </div>
         </div>
       </div>
+
+      <!-- Centered header title -->
+      <h1 class="text-sm font-medium whitespace-nowrap">
+        Superapp - Helpdesk
+      </h1>
+
+      <!-- Right spacer for balance -->
+      <div class="w-[46px]"></div>
     </div>
   </div>
 </template>
