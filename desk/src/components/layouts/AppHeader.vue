@@ -1,54 +1,50 @@
 <template>
   <div class="flex border-b pr-5">
     <div id="app-header" class="flex-1 w-full flex items-center">
-      <!-- Status dropdown centered -->
-      <div class="mx-auto flex items-center">
-        <div class="w-2 h-2 rounded-full mr-1.5" :class="{
-          'bg-green-500': agentStatus === 'Online',
-          'bg-yellow-500': agentStatus === 'Busy',
-          'bg-red-500': agentStatus === 'Offline'
-        }"></div>
-        
+      <!-- Dropdown on the left -->
+      <div class="flex items-center mr-4">
         <div class="relative">
           <select 
             v-model="agentStatus" 
-            class="appearance-none bg-gray-100 border border-gray-300 rounded-md px-2 py-1 pr-6 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+            class="appearance-none bg-gray-100 border border-gray-300 rounded-md px-4 py-2 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500"
             @change="updateAgentStatus"
           >
             <option value="Online">Online</option>
             <option value="Busy">Busy</option>
             <option value="Offline">Offline</option>
           </select>
-          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
-            <svg class="fill-current h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
               <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
             </svg>
           </div>
         </div>
       </div>
+
+      <!-- Header title with hyphen as requested -->
+      <h1 class="text-xl font-semibold">
+        Superapp - HD
+      </h1>
     </div>
   </div>
 </template>
 
 <script setup>
-// Rest of the script remains exactly the same
 import { ref, onMounted } from 'vue';
 import { createResource } from 'frappe-ui';
 
 const agentStatus = ref('Online');
 const currentUser = ref('');
 
-function getCurrentDateTime() {
-  const now = new Date();
-  return now.toISOString().slice(0, 19).replace('T', ' ');
-}
-
+// Fetch current user and last status
 onMounted(() => {
+  // Get current user email
   createResource({
     url: 'frappe.auth.get_logged_user'
   }).submit().then(user => {
     currentUser.value = user;
     
+    // Get last status for this user
     createResource({
       url: 'frappe.client.get_list',
       params: {
@@ -66,6 +62,7 @@ onMounted(() => {
   });
 });
 
+// Update agent status
 function updateAgentStatus() {
   createResource({
     url: 'frappe.client.insert',
@@ -74,7 +71,7 @@ function updateAgentStatus() {
         doctype: 'HD Agent Activity',
         agent_email: currentUser.value,
         agent_status: agentStatus.value,
-        created_on: getCurrentDateTime()
+        created_on: new Date().toISOString()
       }
     }
   }).submit();
@@ -82,7 +79,6 @@ function updateAgentStatus() {
 </script>
 
 <style scoped>
-/* Style remains exactly the same */
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
