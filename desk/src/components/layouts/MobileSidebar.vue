@@ -201,16 +201,6 @@ const agentPortalDropdown = computed(() => [
     },
   },
   {
-    icon: "life-buoy",
-    label: "Support",
-    onClick: () => window.open("https://t.me/frappedesk"),
-  },
-  {
-    icon: "book-open",
-    label: "Docs",
-    onClick: () => window.open("https://docs.frappe.io/helpdesk"),
-  },
-  {
     label: "Log out",
     icon: "log-out",
     onClick: () => authStore.logout(),
