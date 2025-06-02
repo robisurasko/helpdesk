@@ -17,12 +17,6 @@ class CustomContact(Contact):
                 "key": "email_id",
                 "width": "24rem",
             },
-            # {
-            #     "label": "Phone",
-            #     "type": "Data",
-            #     "key": "mobile_no",
-            #     "width": "12rem",
-            # },
             {
                 "label": "Created On",
                 "type": "Datetime",

@@ -190,7 +190,7 @@ def add_default_ticket_priorities():
 
 
 def add_default_agent_groups():
-    agent_groups = ["Billing", "Product Experts"]
+    agent_groups = ["Customer Services", "Branch A", "Branch B"]
 
     for agent_group in agent_groups:
         if not frappe.db.exists("HD Team", agent_group):
@@ -240,7 +240,7 @@ def add_default_assignment_rule():
 
 def add_system_preset_filters():
     preset_filters = []
-    for status in ["Closed", "Resolved", "Replied", "Open"]:
+    for status in ["Closed", "Replied", "Open"]:
         preset_filters.append(
             {
                 "doctype": "HD Preset Filter",

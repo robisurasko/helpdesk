@@ -193,6 +193,11 @@ const agentPortalDropdown = computed(() => [
     component: markRaw(Apps),
   },
   {
+  icon: "user",
+  label: "My Profile",
+  onClick: () => window.open(`https://${window.location.host}/me`, "_blank"),
+  },
+  {
     label: "Customer portal",
     icon: "users",
     onClick: () => {
@@ -202,13 +207,13 @@ const agentPortalDropdown = computed(() => [
   },
   {
     icon: "life-buoy",
-    label: "Support",
-    onClick: () => window.open("https://t.me/frappedesk"),
+    label: "Chat Support",
+    onClick: () => window.open("https://wa.me/6287781335500"),
   },
   {
     icon: "book-open",
-    label: "Docs",
-    onClick: () => window.open("https://docs.frappe.io/helpdesk"),
+    label: "Docs and Guide",
+    onClick: () => window.open("https://rndsolusi.co.id/panduan-pengguna"),
   },
   {
     label: "Log out",
