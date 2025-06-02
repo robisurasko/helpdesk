@@ -1,7 +1,7 @@
 <template>
-  <div class="flex border-b">
-    <div id="app-header" class="flex-1 w-full flex items-center justify-between px-2">
-      <!-- Left side with status dropdown -->
+  <div class="border-b">
+    <div id="app-header" class="w-full flex items-center px-2 py-1">
+      <!-- Status dropdown aligned left -->
       <div class="flex items-center gap-1">
         <div class="w-2 h-2 rounded-full" :class="{
           'bg-green-500': agentStatus === 'Online',
@@ -26,14 +26,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Centered header title -->
-      <h1 class="text-sm font-medium whitespace-nowrap">
-        Superapp - Helpdesk
-      </h1>
-
-      <!-- Right spacer for balance -->
-      <div class="w-[46px]"></div>
     </div>
   </div>
 </template>
