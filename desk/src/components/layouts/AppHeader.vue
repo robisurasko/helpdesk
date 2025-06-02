@@ -1,8 +1,8 @@
 <template>
   <div class="flex border-b pr-5">
-    <div id="app-header" class="flex-1 w-full flex items-center justify-center">
-      <!-- Centered status dropdown -->
-      <div class="flex items-center">
+    <div id="app-header" class="flex-1 w-full flex items-center">
+      <!-- Status dropdown centered -->
+      <div class="mx-auto flex items-center">
         <div class="w-2 h-2 rounded-full mr-1.5" :class="{
           'bg-green-500': agentStatus === 'Online',
           'bg-yellow-500': agentStatus === 'Busy',
@@ -31,6 +31,7 @@
 </template>
 
 <script setup>
+// Rest of the script remains exactly the same
 import { ref, onMounted } from 'vue';
 import { createResource } from 'frappe-ui';
 
@@ -81,6 +82,7 @@ function updateAgentStatus() {
 </script>
 
 <style scoped>
+/* Style remains exactly the same */
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
