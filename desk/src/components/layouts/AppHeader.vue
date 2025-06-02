@@ -1,8 +1,14 @@
 <template>
   <div class="flex border-b pr-5">
-    <div id="app-header" class="flex-1 w-full flex items-center justify-between">
-      <h1 class="text-xl font-semibold">Superapp - Helpdesk</h1>
-      <div class="flex items-center space-x-4">
+    <div id="app-header" class="flex-1 w-full flex items-center">
+      <!-- Status on the left -->
+      <div class="flex items-center mr-auto">
+        <div class="w-3 h-3 rounded-full mr-2" :class="{
+          'bg-green-500': agentStatus === 'Online',
+          'bg-yellow-500': agentStatus === 'Busy',
+          'bg-red-500': agentStatus === 'Offline'
+        }"></div>
+        
         <div class="relative">
           <select 
             v-model="agentStatus" 
@@ -20,6 +26,11 @@
           </div>
         </div>
       </div>
+
+      <!-- Centered header title -->
+      <h1 class="text-xl font-semibold absolute left-1/2 transform -translate-x-1/2">
+        Superapp - Helpdesk
+      </h1>
     </div>
   </div>
 </template>
@@ -31,15 +42,17 @@ import { createResource } from 'frappe-ui';
 const agentStatus = ref('Online');
 const currentUser = ref('');
 
-// Fetch current user and last status
+function getCurrentDateTime() {
+  const now = new Date();
+  return now.toISOString().slice(0, 19).replace('T', ' ');
+}
+
 onMounted(() => {
-  // Get current user email
   createResource({
     url: 'frappe.auth.get_logged_user'
   }).submit().then(user => {
     currentUser.value = user;
     
-    // Get last status for this user
     createResource({
       url: 'frappe.client.get_list',
       params: {
@@ -57,7 +70,6 @@ onMounted(() => {
   });
 });
 
-// Update agent status
 function updateAgentStatus() {
   createResource({
     url: 'frappe.client.insert',
@@ -66,9 +78,18 @@ function updateAgentStatus() {
         doctype: 'HD Agent Activity',
         agent_email: currentUser.value,
         agent_status: agentStatus.value,
-        created_on: new Date().toISOString()
+        created_on: getCurrentDateTime()
       }
     }
   }).submit();
 }
 </script>
+
+<style scoped>
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+}
+</style>
