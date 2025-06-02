@@ -229,20 +229,19 @@ const agentPortalDropdown = computed(() => [
     },
   },
   {
+  icon: "user",
+  label: "My Profile",
+  onClick: () => window.open(`https://${window.location.host}/me`, "_blank"),
+  },
+  {
     icon: "life-buoy",
-    label: "Support",
-    onClick: () => window.open("https://t.me/frappedesk"),
+    label: "Chat Support",
+    onClick: () => window.open("https://wa.me/6287781335500"),
   },
   {
     icon: "book-open",
-    label: "Docs",
-    onClick: () => window.open("https://docs.frappe.io/helpdesk"),
-  },
-  {
-    label: "Login to Frappe Cloud",
-    icon: FrappeCloudIcon,
-    onClick: () => confirmLoginToFrappeCloud(),
-    condition: () => !isMobileView.value && window.is_fc_site,
+    label: "Docs and Guide",
+    onClick: () => window.open("https://rndsolusi.co.id/panduan-pengguna"),
   },
   {
     label: "Settings",
