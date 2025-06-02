@@ -1,7 +1,7 @@
 <div align="center" markdown="1">
 
 <img src=".github/hd-logo.svg" alt="Frappe Helpdesk logo" width="80"/>
-<h1>Frappe Helpdesk</h1>
+<h1>Helpdesk</h1>
 
 **Customer Service, Made Simple and Effective**
 
@@ -25,7 +25,7 @@
 </div>
 
 ## Frappe Helpdesk
-Frappe Helpdesk is an 100% open-source Ticket Management tool which helps you  streamline your company's support, offers an easy setup, clean user interface, and automation tools to resolve customer queries efficiently.
+Helpdesk is an 100% open-source Ticket Management tool which helps you  streamline your company's support, offers an easy setup, clean user interface, and automation tools to resolve customer queries efficiently.
 
 
 
@@ -45,36 +45,6 @@ Managing issues from our customers was a big challenge for us. We were using the
 - **Canned Responses**: Pre-written replies for common queries to ensure quick and consistent communication.
 
 <details open>
-<summary >View Screenshots</summary>
-<h3></h3>
-
-<div align="center">
-	<sub>
-		Agent List View
-	</sub>
-</div>
-
-![Agent List View](.github/AgentListView.png)
-
-
-<div align="center">
-	<sub>
-		Upload articles and let your customer solve their queries through the Knowledge Base.
-	</sub>
-</div>
-
-![Knowledge Base](.github/KB.png)
-
-<div align="center">
-	<sub>
-		With advanced search, your customers will be recommended relevant articles regarding their issue.
-	</sub>
-</div>
-
-
-![Article Search](.github/Search2.png)
-
-
 
 </details>
 <br>
@@ -91,18 +61,9 @@ Managing issues from our customers was a big challenge for us. We were using the
 
 ### Managed Hosting
 
-You can try [Frappe Cloud](https://frappecloud.com), a simple, user-friendly and sophisticated [open-source](https://github.com/frappe/press) platform to host Frappe applications with peace of mind.
+You can try [our cloud](https://superapp.rndsolusi.com/helpdesk/signup), a simple and user-friendly
 
 It takes care of installation, setup, upgrades, monitoring, maintenance and support of your Frappe deployments. It is a fully featured developer platform with an ability to manage and control multiple Frappe deployments.
-
-<div>
-	<a href="https://frappecloud.com/helpdesk/signup" target="_blank">
-		<picture>
-			<source media="(prefers-color-scheme: dark)" srcset="https://frappe.io/files/try-on-fc-white.png">
-			<img src="https://frappe.io/files/try-on-fc-black.png" alt="Try on Frappe Cloud" height="28" />
-		</picture>
-	</a>
-</div>
 
 ### Self Hosting
 
@@ -165,7 +126,7 @@ To setup the repository locally follow the steps mentioned below:
 1. Start the server by running `bench start`
 1. In a separate terminal window, create a new site by running `bench new-site helpdesk.test`
 1. Map your site to localhost with the command `bench --site helpdesk.test add-to-hosts`
-1. Get the Helpdesk app. Run `bench get-app https://github.com/frappe/helpdesk`
+1. Get the Helpdesk app. Run `bench get-app https://github.com/frappe/helpdesk` or `bench get-app --branch main helpdesk https://github.com/robisurasko/helpdesk.git`
 1. Run `bench --site helpdesk.test install-app helpdesk`.
 1. Now open the URL `http://helpdesk.test:8000/helpdesk` in your browser, you should see the app running
 
@@ -182,9 +143,7 @@ To setup the repository locally follow the steps mentioned below:
 
 ## Learn and connect
 
-- [Telegram Public Group](https://t.me/frappedesk)
-- [Discuss Forum](https://discuss.frappe.io/c/frappehelpdesk/69)
-- [Documentation](https://docs.frappe.io/helpdesk)
+- [Telegram contact me ](https://t.me/robisurasko)
 
 <br>
 <br>
