@@ -53,14 +53,14 @@ onMounted(() => {
       url: 'frappe.client.get_list',
       params: {
         doctype: 'HD Agent',
-        fields: ['name', 'current_status'],
+        fields: ['name', 'custom_current_status'],  // Changed to custom_current_status
         filters: { name: user },
         limit: 1
       }
     }).submit().then(data => {
       if (data && data.length > 0) {
         agentDocName.value = data[0].name;
-        agentStatus.value = data[0].current_status || 'Offline';
+        agentStatus.value = data[0].custom_current_status || 'Offline';  // Changed to custom_current_status
       }
     });
   });
@@ -75,7 +75,7 @@ function updateAgentStatus() {
     params: {
       doctype: 'HD Agent',
       name: agentDocName.value,
-      fieldname: 'current_status',
+      fieldname: 'custom_current_status',  // Changed to custom_current_status
       value: agentStatus.value
     }
   }).submit();
