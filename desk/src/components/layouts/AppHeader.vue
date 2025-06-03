@@ -39,79 +39,46 @@ import { createResource } from 'frappe-ui';
 
 const agentStatus = ref('Online');
 const currentUser = ref('');
-const statusDocName = ref('');
+const agentDocName = ref('');
 
-function getCurrentDateTime() {
-  const now = new Date();
-  return now.toISOString().slice(0, 19).replace('T', ' ');
-}
-
+// Load current user and their status
 onMounted(() => {
   createResource({
     url: 'frappe.auth.get_logged_user'
   }).submit().then(user => {
     currentUser.value = user;
     
-    // Check if status record exists for this user
+    // Get the agent record for this user
     createResource({
       url: 'frappe.client.get_list',
       params: {
-        doctype: 'HD Agent Status',
+        doctype: 'HD Agent',
         fields: ['name', 'current_status'],
-        filters: { agent_email: user },
+        filters: { name: user },
         limit: 1
       }
     }).submit().then(data => {
       if (data && data.length > 0) {
-        // Existing record found
-        statusDocName.value = data[0].name;
-        agentStatus.value = data[0].current_status;
-      } else {
-        // No record found, create one with default status
-        createResource({
-          url: 'frappe.client.insert',
-          params: {
-            doc: {
-              doctype: 'HD Agent Status',
-              agent_email: currentUser.value,
-              current_status: agentStatus.value
-            }
-          }
-        }).submit().then(doc => {
-          statusDocName.value = doc.name;
-        });
+        agentDocName.value = data[0].name;
+        agentStatus.value = data[0].current_status || 'Offline';
       }
     });
   });
 });
 
+// Update agent status
 function updateAgentStatus() {
-  if (!statusDocName.value) {
-    // If no doc name yet (maybe still loading), create new record
-    createResource({
-      url: 'frappe.client.insert',
-      params: {
-        doc: {
-          doctype: 'HD Agent Status',
-          agent_email: currentUser.value,
-          current_status: agentStatus.value
-        }
-      }
-    }).submit().then(doc => {
-      statusDocName.value = doc.name;
-    });
-  } else {
-    // Update existing record
-    createResource({
-      url: 'frappe.client.set_value',
-      params: {
-        doctype: 'HD Agent Status',
-        name: statusDocName.value,
-        fieldname: 'current_status',
-        value: agentStatus.value
-      }
-    }).submit();
-  }
+  if (!agentDocName.value) return;
+  
+  createResource({
+    url: 'frappe.client.set_value',
+    params: {
+      doctype: 'HD Agent',
+      name: agentDocName.value,
+      fieldname: 'current_status',
+      value: agentStatus.value
+    }
+  }).submit();
 }
 </script>
 
