@@ -29,13 +29,13 @@ scheduler_events = {
     "daily": [
         "helpdesk.helpdesk.doctype.hd_ticket.hd_ticket.close_tickets_after_n_days"
     ],
-    # RND 5-minute interval scheduler
-    #"cron": {
+    # RND 5-minute interval scheduler assignment
+    "cron": {
     # Runs every 5 minutes (at :00, :05, :10, etc.)
-    #    "*/5 * * * *": [
-    #        "helpdesk.helpdesk.doctype.ticket_assignment.assign_unassigned_tickets_round_robin"
-    #   ]
-    #}
+        "*/5 * * * *": [
+            "helpdesk.helpdesk.doctype.ticket_assignment.assign_unassigned_tickets_round_robin"
+       ]
+    }
 }
 
 website_route_rules = [
