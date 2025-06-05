@@ -12,6 +12,7 @@ declare module 'vue' {
     ActivityIcon: typeof import('./src/components/icons/ActivityIcon.vue')['default']
     AddNewAgentsDialog: typeof import('./src/components/desk/global/AddNewAgentsDialog.vue')['default']
     AppHeader: typeof import('./src/components/layouts/AppHeader.vue')['default']
+    AppHeader_dev: typeof import('./src/components/layouts/AppHeader_dev.vue')['default']
     Apps: typeof import('./src/components/Apps.vue')['default']
     AppsIcon: typeof import('./src/components/icons/AppsIcon.vue')['default']
     ArticleCard: typeof import('./src/components/knowledge-base/ArticleCard.vue')['default']

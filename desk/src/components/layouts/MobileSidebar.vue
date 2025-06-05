@@ -192,6 +192,11 @@ const agentPortalDropdown = computed(() => [
   {
     component: markRaw(Apps),
   },
+    {
+    icon: "user",
+    label: "My Profile",
+    onClick: () => window.open(`${window.location.origin}/me`),
+  },
   {
     label: "Customer portal",
     icon: "users",

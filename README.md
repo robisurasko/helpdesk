@@ -29,27 +29,6 @@ Helpdesk is an 100% open-source Ticket Management tool which helps you  streamli
 
 
 
-### Motivation
-Managing issues from our customers was a big challenge for us. We were using the ERPNext support module which was not very good in UI and the UX was also not good. We wanted to have a tool that can be easily integrated with our existing system and can be customized as per our needs. So we decided to build Frappe Helpdesk.
-
-### Key Features
-
-- **Agent and Customer Portal Views**: Dual portals for agents and customers to simplify issue submission and management.
-
-- **Customizable SLAs**: Discover how you can set and track SLAs for better response times.
-
-- **Assignment Rules**: Custom auto-assignment of tickets based on priority, issue type, or workload.
-
-- **Knowledge Base**: Learn how to create and manage help articles to empower users and reduce tickets.
-
-- **Canned Responses**: Pre-written replies for common queries to ensure quick and consistent communication.
-
-<details open>
-
-</details>
-<br>
-
-
 ### Under the Hood
 
 - [**Frappe Framework**](https://github.com/frappe/frappe): A full-stack web application framework written in Python and Javascript.
@@ -155,3 +134,23 @@ To setup the repository locally follow the steps mentioned below:
 		</picture>
 	</a>
 </div>
+
+
+<h1>WHATS IS THE CUSTOMIZATION AND UPDATE</h1>
+
+1. Helpdesk Agent status
+Status with Online, Busy and Offline base on HD Agent
+Need to add manually the following step
+
+- Edit Form HD Agent and create 2 fields
+* Label = Curren Status, Name of Field = custom_current_status (Select) with 3 option Online, Busy and Offline (Default = Offline)
+-> Purpooses : to log the status of Agent
+
+* Label = Last Assignment, Name of Field = custom_last_assigment (Datetime)
+-> Purposes : to check and automation of assigment with round robin
+
+2. Auto assigment base on ONLY Agent with status ONLINE
+Create Scheduler Event on SERVER SCRIPT with CRON and add the following script:
+
+from helpdesk.ticket_assignment import assign_unassigned_tickets_round_robin
+assign_unassigned_tickets_round_robin()
