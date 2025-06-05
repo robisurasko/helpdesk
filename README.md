@@ -151,6 +151,8 @@ Need to add manually the following step
 
 2. Auto assigment base on ONLY Agent with status ONLINE
 Create Scheduler Event on SERVER SCRIPT with CRON and add the following script:
+---
+from helpdesk.helpdesk.doctype.ticket_assignment import assign_unassigned_tickets_round_robin
 
-from helpdesk.ticket_assignment import assign_unassigned_tickets_round_robin
 assign_unassigned_tickets_round_robin()
+---
