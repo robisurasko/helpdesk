@@ -3,10 +3,9 @@ from frappe.utils import now_datetime, get_datetime_str
 from frappe.desk.form.assign_to import add as add_assignment
 
 def assign_unassigned_tickets_round_robin():
-    """Assign unassigned tickets to online agents in round-robin fashion"""
+    """Assign unassigned tickets with max 5 per agent when alone"""
     
     def log_action(message, status="INFO", details=None):
-        """Standardized logging function"""
         timestamp = get_datetime_str(now_datetime())
         log_entry = f"[{timestamp}] [{status}] {message}"
         if details:
@@ -47,7 +46,7 @@ def assign_unassigned_tickets_round_robin():
                 "custom_current_status": "Online",
                 "is_active": 1
             },
-            fields=["name", "user", "custom_last_assignment"],
+            fields=["name", "user"],
             order_by="custom_last_assignment asc",
             ignore_permissions=True
         )
@@ -62,63 +61,85 @@ def assign_unassigned_tickets_round_robin():
 
         log_action(f"Found {len(online_agents)} online agents")
 
-        # 3. Assignment process
+        # 3. Initialize in-memory assignment tracking
+        agent_assignments = {agent['user']: 0 for agent in online_agents}
         assignments = 0
-        agent_index = 0
         assignment_results = []
 
         for ticket in unassigned_tickets:
-            agent = online_agents[agent_index]
-            agent_user = agent["user"]
-            ticket_name = ticket["name"]
+            # Sort agents by: 1. assignment count, 2. last assignment time
+            sorted_agents = sorted(
+                online_agents,
+                key=lambda x: (
+                    agent_assignments[x['user']],
+                    frappe.db.get_value("HD Agent", x['name'], "custom_last_assignment") or "2000-01-01"
+                )
+            )
 
-            try:
-                # Get agent email
-                agent_email = frappe.db.get_value("User", agent_user, "email")
-                if not agent_email:
-                    log_action(f"Skipping agent {agent_user} - no email found", "WARNING")
+            agent_assigned = False
+            for agent in sorted_agents:
+                # Skip if single agent has reached max assignments
+                if len(online_agents) == 1 and agent_assignments[agent['user']] >= 5:
                     continue
 
-                # Create assignment
-                add_assignment({
-                    'doctype': "HD Ticket",
-                    'name': ticket_name,
-                    'assign_to': [agent_email],
-                    'description': "Automatically assigned via round-robin",
-                    'notify': True
-                })
+                ticket_name = ticket['name']
+                agent_user = agent['user']
 
-                # Update agent's last assignment timestamp using Frappe's standard format
-                frappe.db.set_value(
-                    "HD Agent",
-                    agent["name"],
-                    "custom_last_assignment",
-                    now_datetime(),  # Frappe's standard datetime object
-                    update_modified=False
-                )
+                try:
+                    agent_email = frappe.db.get_value("User", agent_user, "email")
+                    if not agent_email:
+                        log_action(f"Skipping agent {agent_user} - no email found", "WARNING")
+                        continue
 
-                assignments += 1
+                    # Create assignment
+                    add_assignment({
+                        'doctype': "HD Ticket",
+                        'name': ticket_name,
+                        'assign_to': [agent_email],
+                        'description': "Automatically assigned",
+                        'notify': True
+                    })
+
+                    # Update last assignment time
+                    frappe.db.set_value(
+                        "HD Agent",
+                        agent['name'],
+                        "custom_last_assignment",
+                        now_datetime(),
+                        update_modified=False
+                    )
+
+                    # Update in-memory counter
+                    agent_assignments[agent_user] += 1
+                    assignments += 1
+                    assignment_results.append({
+                        "ticket": ticket_name,
+                        "agent": agent_user,
+                        "status": "success",
+                        "timestamp": get_datetime_str(now_datetime())
+                    })
+                    frappe.db.commit()
+                    log_action(f"Assigned {ticket_name} to {agent_user}")
+                    agent_assigned = True
+                    break
+
+                except Exception as e:
+                    frappe.db.rollback()
+                    assignment_results.append({
+                        "ticket": ticket_name,
+                        "agent": agent_user,
+                        "status": "failed",
+                        "error": str(e)
+                    })
+                    log_action(f"Failed to assign {ticket_name}: {str(e)}", "ERROR")
+
+            if not agent_assigned:
+                log_action(f"No available agents for ticket {ticket['name']}", "WARNING")
                 assignment_results.append({
-                    "ticket": ticket_name,
-                    "agent": agent_user,
-                    "status": "success",
-                    "timestamp": get_datetime_str(now_datetime())  # For reporting only
-                })
-                frappe.db.commit()
-
-                log_action(f"Assigned {ticket_name} to {agent_user}")
-
-            except Exception as e:
-                frappe.db.rollback()
-                assignment_results.append({
-                    "ticket": ticket_name,
-                    "agent": agent_user,
+                    "ticket": ticket['name'],
                     "status": "failed",
-                    "error": str(e)
+                    "error": "No available agents (max assignments reached)"
                 })
-                log_action(f"Failed to assign {ticket_name}: {str(e)}", "ERROR")
-            finally:
-                agent_index = (agent_index + 1) % len(online_agents)
 
         # 4. Return results
         result = {

@@ -29,6 +29,27 @@ Helpdesk is an 100% open-source Ticket Management tool which helps you  streamli
 
 
 
+### Motivation
+Managing issues from our customers was a big challenge for us. We were using the ERPNext support module which was not very good in UI and the UX was also not good. We wanted to have a tool that can be easily integrated with our existing system and can be customized as per our needs. So we decided to build Frappe Helpdesk.
+
+### Key Features
+
+- **Agent and Customer Portal Views**: Dual portals for agents and customers to simplify issue submission and management.
+
+- **Customizable SLAs**: Discover how you can set and track SLAs for better response times.
+
+- **Assignment Rules**: Custom auto-assignment of tickets based on priority, issue type, or workload.
+
+- **Knowledge Base**: Learn how to create and manage help articles to empower users and reduce tickets.
+
+- **Canned Responses**: Pre-written replies for common queries to ensure quick and consistent communication.
+
+<details open>
+
+</details>
+<br>
+
+
 ### Under the Hood
 
 - [**Frappe Framework**](https://github.com/frappe/frappe): A full-stack web application framework written in Python and Javascript.
@@ -150,9 +171,7 @@ Need to add manually the following step
 -> Purposes : to check and automation of assigment with round robin
 
 2. Auto assigment base on ONLY Agent with status ONLINE
-Create Scheduler Event on SERVER SCRIPT with CRON and add the following script:
----
-from helpdesk.helpdesk.doctype.ticket_assignment import assign_unassigned_tickets_round_robin
+make sure no other assigment process. System will automatically assign un-assign ticket to user with status online
 
-assign_unassigned_tickets_round_robin()
----
+CREATE CRONTAB Example below (update every 10 minutes):
+*/10 * * * * cd /home/your_user/frappe-bench && /usr/local/bin/bench --verbose --site your_site execute helpdesk.helpdesk.doctype.ticket_assignment.assign_unassigned_tickets_round_robin

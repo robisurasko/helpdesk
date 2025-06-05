@@ -22,20 +22,19 @@ after_migrate = [
     "helpdesk.search.build_index_in_background",
     "helpdesk.search.download_corpus",
 ]
-
+# updated for assigment online status
 scheduler_events = {
     "all": ["helpdesk.search.build_index_if_not_exists"],
     "hourly": ["helpdesk.search.download_corpus"],
     "daily": [
         "helpdesk.helpdesk.doctype.hd_ticket.hd_ticket.close_tickets_after_n_days"
     ],
-    # RND 5-minute interval scheduler assignment
-    "cron": {
-    # Runs every 5 minutes (at :00, :05, :10, etc.)
-        "*/5 * * * *": [
-            "helpdesk.helpdesk.doctype.ticket_assignment.assign_unassigned_tickets_round_robin"
-       ]
-    }
+    #"cron": {
+    #    # Runs every 10 minutes
+    #    "*/10 * * * *": [
+    #        "helpdesk.helpdesk.doctype.hd_ticket.hd_ticket.assign_unassigned_tickets_round_robin"
+    #    ]
+    #}
 }
 
 website_route_rules = [
