@@ -1,2 +1,0 @@
-import{_ as o}from"./TicketTextEditor.vue_vue_type_script_setup_true_lang-131673e4.js";import"./index-6a3ac2ad.js";import"./FileUploader-237fbae7.js";import"./useView-6d572c4e.js";import"./dayjs-a716d1bc.js";import"./AttachmentItem.vue_vue_type_script_setup_true_lang-13aeca60.js";import"./more-horizontal-14937468.js";import"./UserAvatar.vue_vue_type_script_setup_true_lang-f82f7b0e.js";import"./Avatar.vue_vue_type_script_setup_true_lang-8ff52837.js";import"./knowledgeBase-77ec454d.js";export{o as default};
-//# sourceMappingURL=TicketTextEditor-5a4d96c2.js.map
