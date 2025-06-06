@@ -39,7 +39,7 @@
 import { ref, onMounted } from 'vue';
 import { createResource } from 'frappe-ui';
 
-const agentStatus = ref('Online');
+const agentStatus = ref('Offline');
 const currentUser = ref('');
 const agentDocName = ref('');
 
