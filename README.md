@@ -145,13 +145,18 @@ To setup the repository locally follow the steps mentioned below:
 
 - [Telegram contact me ](https://t.me/robisurasko)
 
-<br>
-<br>
-<div align="center">
-	<a href="https://frappe.io" target="_blank">
-		<picture>
-			<source media="(prefers-color-scheme: dark)" srcset="https://frappe.io/files/Frappe-white.png">
-			<img src="https://frappe.io/files/Frappe-black.png" alt="Frappe Technologies" height="28"/>
-		</picture>
-	</a>
-</div>
+
+WHATS IS THE CUSTOMIZATION AND UPDATE
+1. Helpdesk Agent status Status with Online, Busy and Offline base on HD Agent Need to add manually the following step
+
+* Edit Form HD Agent and create 2 fields
+
+- Label = Curren Status, Name of Field = custom_current_status (Select) with 3 option Online, Busy and Offline (Default = Offline) -> Purpooses : to log the status of Agent
+
+- Label = Last Assignment, Name of Field = custom_last_assigment (Datetime) -> Purposes : to check and automation of assigment with round robin
+
+2. Auto assigment base on ONLY Agent with status ONLINE make sure no other assigment process. System will automatically assign un-assign ticket and status open to user with status online by background cron every 5 minutes.
+
+3. My Profile Menu
+
+4. Support link shortcut
