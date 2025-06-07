@@ -29,12 +29,12 @@ scheduler_events = {
     "daily": [
         "helpdesk.helpdesk.doctype.hd_ticket.hd_ticket.close_tickets_after_n_days"
     ],
-    #"cron": {
-    #    # Runs every 10 minutes
-    #    "*/10 * * * *": [
-    #        "helpdesk.helpdesk.doctype.hd_ticket.hd_ticket.assign_unassigned_tickets_round_robin"
-    #    ]
-    #}
+    "cron": {
+        # Runs every 5 minutes
+        "*/5 * * * *": [
+            "helpdesk.helpdesk.doctype.ticket_assignment.assign_unassigned_tickets_round_robin"
+        ]
+    }
 }
 
 website_route_rules = [
