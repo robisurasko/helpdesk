@@ -157,6 +157,8 @@ WHATS IS THE CUSTOMIZATION AND UPDATE
 
 2. Auto assigment base on ONLY Agent with status ONLINE make sure no other assigment process. System will automatically assign un-assign ticket and status open to user with status online by background cron every 5 minutes.
 
+- CREATE CRONTAB Example below (update every 5 minutes): */5 * * * * cd /home/your_user/frappe-bench && /usr/local/bin/bench --verbose --site your_site execute helpdesk.helpdesk.doctype.ticket_assignment.assign_unassigned_tickets_round_robin
+
 3. My Profile Menu
 
 4. Support link shortcut
