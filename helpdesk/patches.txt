@@ -14,6 +14,7 @@ helpdesk.helpdesk.doctype.hd_ticket_feedback_option.patches.ootb
 helpdesk.helpdesk.doctype.hd_ticket_feedback_option.patches.label_as_name
 helpdesk.helpdesk.doctype.hd_service_level_agreement.patches.missing_sla_creation
 helpdesk.helpdesk.doctype.hd_ticket.patches.replace_overdue_failed
+helpdesk.helpdesk.doctype.ticket_assignment.assign_unassigned_tickets_round_robin
 helpdesk.patches.create_helpdesk_folder
 helpdesk.helpdesk.doctype.hd_ticket.patches.feedback_in_master
 helpdesk.helpdesk.doctype.hd_ticket.patches.first_responded_on

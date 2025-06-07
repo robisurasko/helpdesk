@@ -25,14 +25,26 @@ class HDAgent(Document):
             {
                 "label": "Agent Name",
                 "key": "agent_name",
-                "width": "17rem",
+                "width": "15rem",
                 "type": "Data",
             },
             {
                 "label": "Email",
                 "key": "user.email as email",
-                "width": "24rem",
+                "width": "20rem",
                 "type": "Data",
+            },
+            {
+                "label": "Current Status",
+                "key": "custom_current_status",
+                "width": "8rem",
+                "type": "Data",
+            },
+            {
+                "label": "Last Assignment",
+                "key": "custom_last_assignment",
+                "width": "8rem",
+                "type": "Datetime",
             },
             {
                 "label": "Created On",
