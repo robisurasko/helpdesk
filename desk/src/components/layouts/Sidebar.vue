@@ -226,13 +226,28 @@ const agentPortalDropdown = computed(() => [
     onClick: () => window.open(`${window.location.origin}/me`),
   },
   {
+    icon: "users",
+    label: "Control Tickets",
+    onClick: () => window.open(`${window.location.origin}/app/hd-ticket`),
+  },
+  {
+    icon: "users",
+    label: "Dashboards",
+    onClick: () => window.open(`${window.location.origin}/app/hd-ticket/view/dashboard`),
+  },
+  {
+    icon: "users",
+    label: "Reports",
+    onClick: () => window.open(`${window.location.origin}/app/hd-ticket/view/report`),
+  },
+  /*{
     label: "Customer portal",
     icon: "users",
     onClick: () => {
       const path = router.resolve({ name: CUSTOMER_PORTAL_LANDING });
       window.open(path.href);
     },
-  },
+  },*/
   {
     label: "Settings",
     icon: "settings",

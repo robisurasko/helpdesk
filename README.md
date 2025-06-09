@@ -162,3 +162,9 @@ WHATS IS THE CUSTOMIZATION AND UPDATE
 3. My Profile Menu
 
 4. Support link shortcut
+
+5. Control Tickets Menu
+
+6. Dashboard or Insights Menu
+
+7. Reports Menu
