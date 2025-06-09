@@ -2,3 +2,4 @@ node_modules
 .DS_Store
 helpdesk/__pycache__/__init__.cpython-313.pyc
 helpdesk/public/desk/assets/TicketTextEditor.vue_vue_type_script_setup_true_lang-b725ef40.js.map
+helpdesk/helpdesk/doctype/__pycache__/ticket_assignment.cpython-313.pyc
